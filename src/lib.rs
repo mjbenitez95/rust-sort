@@ -36,6 +36,26 @@ pub fn insertion_sort(arr: &Vec<i64>) -> Vec<i64> {
     sorted_arr
 }
 
+pub fn selection_sort(arr: &Vec<i64>) -> Vec<i64> {
+    let mut unsorted_arr = arr.clone();
+    let mut sorted_arr = Vec::with_capacity(unsorted_arr.len());
+
+    while !unsorted_arr.is_empty() {
+        let mut min_index = 0;
+        let mut min_value = unsorted_arr[0];
+        for (index, value) in unsorted_arr.iter().enumerate() {
+            if value < &min_value {
+                min_index = index;
+                min_value = *value;
+            }
+        }
+        sorted_arr.push(min_value);
+        unsorted_arr.swap_remove(min_index);
+    }
+
+    sorted_arr
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -55,6 +75,16 @@ mod tests {
         println!("{:?}", insertion_sort(&random_nums));
         assert_eq!(
             insertion_sort(&random_nums),
+            [-460, -291, -180, 1, 86, 197, 307, 697, 779, 836, 885],
+        );
+    }
+
+    #[test]
+    fn selection_sort_sorts() {
+        let random_nums = vec![697, 1, 86, 885, -460, -291, 836, 197, -180, 307, 779];
+        println!("{:?}", selection_sort(&random_nums));
+        assert_eq!(
+            selection_sort(&random_nums),
             [-460, -291, -180, 1, 86, 197, 307, 697, 779, 836, 885],
         );
     }
