@@ -1,8 +1,6 @@
 use sort::generate_random_numbers;
 
 fn main() {
-    let vec = generate_random_numbers(10);
-    let bubble_sorted_vec = sort::bubble_sort(&vec);
-
-    println!("{:?} || {:?}", vec, bubble_sorted_vec);
+    let vec = generate_random_numbers(1000);
+    let _bubble_sorted_vec = sort::bubble_sort(&vec);
 }

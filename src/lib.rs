@@ -24,6 +24,18 @@ pub fn bubble_sort(arr: &Vec<i64>) -> Vec<i64> {
     sorted_arr
 }
 
+pub fn insertion_sort(arr: &Vec<i64>) -> Vec<i64> {
+    let mut sorted_arr = arr.clone();
+    for i in 1..sorted_arr.len() {
+        let mut j = i;
+        while j > 0 && sorted_arr[j] < sorted_arr[j - 1] {
+            sorted_arr.swap(j, j - 1);
+            j = j - 1;
+        }
+    }
+    sorted_arr
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -33,6 +45,16 @@ mod tests {
         let random_nums = vec![697, 1, 86, 885, -460, -291, 836, 197, -180, 307, 779];
         assert_eq!(
             bubble_sort(&random_nums),
+            [-460, -291, -180, 1, 86, 197, 307, 697, 779, 836, 885],
+        );
+    }
+
+    #[test]
+    fn insertion_sort_sorts() {
+        let random_nums = vec![697, 1, 86, 885, -460, -291, 836, 197, -180, 307, 779];
+        println!("{:?}", insertion_sort(&random_nums));
+        assert_eq!(
+            insertion_sort(&random_nums),
             [-460, -291, -180, 1, 86, 197, 307, 697, 779, 836, 885],
         );
     }
