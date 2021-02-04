@@ -9,14 +9,21 @@ pub fn generate_random_numbers(count: i64) -> Vec<i64> {
 }
 
 pub fn run<T: Ord + Clone + Copy>(vec: &Vec<T>) {
+    let _standard_sorted_vec = standard_sort(&vec);
     let _bubble_sorted_vec = bubble_sort(&vec);
     let _insertion_sorted_vec = insertion_sort(&vec);
     let _selection_sorted_vec = selection_sort(&vec);
 }
 
-fn bubble_sort<T: Ord + Clone>(arr: &Vec<T>) -> Vec<T> {
-    let mut sorted = false;
+fn standard_sort<T: Ord + Clone>(arr: &Vec<T>) -> Vec<T> {
     let mut sorted_arr = arr.to_vec();
+    sorted_arr.sort();
+    sorted_arr
+}
+
+fn bubble_sort<T: Ord + Clone>(arr: &Vec<T>) -> Vec<T> {
+    let mut sorted_arr = arr.to_vec();
+    let mut sorted = false;
 
     while !sorted {
         sorted = true;
@@ -66,6 +73,15 @@ fn selection_sort<T: Ord + Clone + Copy>(arr: &Vec<T>) -> Vec<T> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn standard_sort_sorts() {
+        let random_nums = vec![697, 1, 86, 885, -460, -291, 836, 197, -180, 307, 779];
+        assert_eq!(
+            standard_sort(&random_nums),
+            [-460, -291, -180, 1, 86, 197, 307, 697, 779, 836, 885],
+        );
+    }
 
     #[test]
     fn bubble_sort_sorts() {
