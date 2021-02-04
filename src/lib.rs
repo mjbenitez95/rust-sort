@@ -1,4 +1,5 @@
 use rand::{distributions::Uniform, Rng};
+use std::cmp::Ord;
 
 pub fn generate_random_numbers(count: i64) -> Vec<i64> {
     let mut rng = rand::thread_rng();
@@ -7,9 +8,9 @@ pub fn generate_random_numbers(count: i64) -> Vec<i64> {
     (0..count + 1).map(|_| rng.sample(&number_range)).collect()
 }
 
-pub fn bubble_sort(arr: &Vec<i64>) -> Vec<i64> {
+pub fn bubble_sort<T: Ord + Clone>(arr: &Vec<T>) -> Vec<T> {
     let mut sorted = false;
-    let mut sorted_arr = arr.clone();
+    let mut sorted_arr = arr.to_vec();
 
     while !sorted {
         sorted = true;
@@ -24,8 +25,8 @@ pub fn bubble_sort(arr: &Vec<i64>) -> Vec<i64> {
     sorted_arr
 }
 
-pub fn insertion_sort(arr: &Vec<i64>) -> Vec<i64> {
-    let mut sorted_arr = arr.clone();
+pub fn insertion_sort<T: Ord + Clone>(arr: &Vec<T>) -> Vec<T> {
+    let mut sorted_arr = arr.to_vec();
     for i in 1..sorted_arr.len() {
         let mut j = i;
         while j > 0 && sorted_arr[j] < sorted_arr[j - 1] {
@@ -36,8 +37,8 @@ pub fn insertion_sort(arr: &Vec<i64>) -> Vec<i64> {
     sorted_arr
 }
 
-pub fn selection_sort(arr: &Vec<i64>) -> Vec<i64> {
-    let mut unsorted_arr = arr.clone();
+pub fn selection_sort<T: Ord + Clone + Copy>(arr: &Vec<T>) -> Vec<T> {
+    let mut unsorted_arr = arr.to_vec();
     let mut sorted_arr = Vec::with_capacity(unsorted_arr.len());
 
     while !unsorted_arr.is_empty() {
