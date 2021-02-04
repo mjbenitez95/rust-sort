@@ -9,24 +9,23 @@ pub fn generate_random_numbers(count: i64) -> Vec<i64> {
 }
 
 pub fn run<T: Ord + Clone + Copy>(vec: &Vec<T>) {
-    let mut standard_sorted_vec = vec.to_vec();
-    standard_sort(&mut standard_sorted_vec);
-
-    let mut bubble_sorted_vec = vec.to_vec();
-    bubble_sort(&mut bubble_sorted_vec);
-
-    let mut insertion_sorted_vec = vec.to_vec();
-    insertion_sort(&mut insertion_sorted_vec);
-
-    let mut selection_sorted_vec = vec.to_vec();
-    selection_sort(&mut selection_sorted_vec);
+    let _standard_sorted_vec = run_sort(vec, standard_sort);
+    let _bubble_sorted_vec = run_sort(vec, bubble_sort);
+    let _insertion_sorted_vec = run_sort(vec, insertion_sort);
+    let _selection_sorted_vec = run_sort(vec, selection_sort);
 }
 
-fn standard_sort<T: Ord + Clone>(arr: &mut Vec<T>) {
+pub fn run_sort<T: Ord + Clone + Copy>(vec: &Vec<T>, sort: fn(&mut Vec<T>)) -> Vec<T> {
+    let mut new_vec = vec.to_vec();
+    sort(&mut new_vec);
+    new_vec
+}
+
+fn standard_sort<T: Ord + Clone + Copy>(arr: &mut Vec<T>) {
     arr.sort();
 }
 
-fn bubble_sort<T: Ord + Clone>(arr: &mut Vec<T>) {
+fn bubble_sort<T: Ord + Clone + Copy>(arr: &mut Vec<T>) {
     let mut sorted = false;
 
     while !sorted {
@@ -40,7 +39,7 @@ fn bubble_sort<T: Ord + Clone>(arr: &mut Vec<T>) {
     }
 }
 
-fn insertion_sort<T: Ord + Clone>(arr: &mut Vec<T>) {
+fn insertion_sort<T: Ord + Clone + Copy>(arr: &mut Vec<T>) {
     for i in 1..arr.len() {
         let mut j = i;
         while j > 0 && arr[j] < arr[j - 1] {
@@ -74,29 +73,25 @@ mod tests {
 
     #[test]
     fn standard_sort_sorts() {
-        let (mut random_nums, sorted_nums) = get_test_values();
-        standard_sort(&mut random_nums);
-        assert_eq!(random_nums, sorted_nums);
+        let (random_nums, sorted_nums) = get_test_values();
+        assert_eq!(run_sort(&random_nums, standard_sort), sorted_nums);
     }
 
     #[test]
     fn bubble_sort_sorts() {
-        let (mut random_nums, sorted_nums) = get_test_values();
-        bubble_sort(&mut random_nums);
-        assert_eq!(random_nums, sorted_nums);
+        let (random_nums, sorted_nums) = get_test_values();
+        assert_eq!(run_sort(&random_nums, bubble_sort), sorted_nums);
     }
 
     #[test]
     fn insertion_sort_sorts() {
-        let (mut random_nums, sorted_nums) = get_test_values();
-        insertion_sort(&mut random_nums);
-        assert_eq!(random_nums, sorted_nums);
+        let (random_nums, sorted_nums) = get_test_values();
+        assert_eq!(run_sort(&random_nums, insertion_sort), sorted_nums);
     }
 
     #[test]
     fn selection_sort_sorts() {
-        let (mut random_nums, sorted_nums) = get_test_values();
-        selection_sort(&mut random_nums);
-        assert_eq!(random_nums, sorted_nums);
+        let (random_nums, sorted_nums) = get_test_values();
+        assert_eq!(run_sort(&random_nums, selection_sort), sorted_nums);
     }
 }
