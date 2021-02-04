@@ -8,7 +8,13 @@ pub fn generate_random_numbers(count: i64) -> Vec<i64> {
     (0..count + 1).map(|_| rng.sample(&number_range)).collect()
 }
 
-pub fn bubble_sort<T: Ord + Clone>(arr: &Vec<T>) -> Vec<T> {
+pub fn run<T: Ord + Clone + Copy>(vec: &Vec<T>) {
+    let _bubble_sorted_vec = bubble_sort(&vec);
+    let _insertion_sorted_vec = insertion_sort(&vec);
+    let _selection_sorted_vec = selection_sort(&vec);
+}
+
+fn bubble_sort<T: Ord + Clone>(arr: &Vec<T>) -> Vec<T> {
     let mut sorted = false;
     let mut sorted_arr = arr.to_vec();
 
@@ -25,7 +31,7 @@ pub fn bubble_sort<T: Ord + Clone>(arr: &Vec<T>) -> Vec<T> {
     sorted_arr
 }
 
-pub fn insertion_sort<T: Ord + Clone>(arr: &Vec<T>) -> Vec<T> {
+fn insertion_sort<T: Ord + Clone>(arr: &Vec<T>) -> Vec<T> {
     let mut sorted_arr = arr.to_vec();
     for i in 1..sorted_arr.len() {
         let mut j = i;
@@ -37,7 +43,7 @@ pub fn insertion_sort<T: Ord + Clone>(arr: &Vec<T>) -> Vec<T> {
     sorted_arr
 }
 
-pub fn selection_sort<T: Ord + Clone + Copy>(arr: &Vec<T>) -> Vec<T> {
+fn selection_sort<T: Ord + Clone + Copy>(arr: &Vec<T>) -> Vec<T> {
     let mut unsorted_arr = arr.to_vec();
     let mut sorted_arr = Vec::with_capacity(unsorted_arr.len());
 

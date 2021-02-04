@@ -1,6 +1,6 @@
-use sort::generate_random_numbers;
+use sort;
 
 fn main() {
-    let vec = generate_random_numbers(1000);
-    let _bubble_sorted_vec = sort::bubble_sort(&vec);
+    let vec = sort::generate_random_numbers(1000);
+    sort::run(&vec);
 }
