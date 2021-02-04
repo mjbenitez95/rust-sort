@@ -40,6 +40,7 @@ fn bubble_sort<T: Ord + Clone>(arr: &Vec<T>) -> Vec<T> {
 
 fn insertion_sort<T: Ord + Clone>(arr: &Vec<T>) -> Vec<T> {
     let mut sorted_arr = arr.to_vec();
+
     for i in 1..sorted_arr.len() {
         let mut j = i;
         while j > 0 && sorted_arr[j] < sorted_arr[j - 1] {
@@ -47,6 +48,7 @@ fn insertion_sort<T: Ord + Clone>(arr: &Vec<T>) -> Vec<T> {
             j = j - 1;
         }
     }
+
     sorted_arr
 }
 
@@ -74,41 +76,37 @@ fn selection_sort<T: Ord + Clone + Copy>(arr: &Vec<T>) -> Vec<T> {
 mod tests {
     use super::*;
 
+    fn get_test_values() -> (Vec<i64>, Vec<i64>) {
+        let random_nums = vec![697, 1, 86, 885, -460, -291, 836, 197, -180, 307, 779];
+        let sorted_nums = vec![-460, -291, -180, 1, 86, 197, 307, 697, 779, 836, 885];
+        (random_nums, sorted_nums)
+    }
+
     #[test]
     fn standard_sort_sorts() {
-        let random_nums = vec![697, 1, 86, 885, -460, -291, 836, 197, -180, 307, 779];
-        assert_eq!(
-            standard_sort(&random_nums),
-            [-460, -291, -180, 1, 86, 197, 307, 697, 779, 836, 885],
-        );
+        let (random_nums, sorted_nums) = get_test_values();
+        let standard_sorted = standard_sort(&random_nums);
+        assert_eq!(standard_sorted, sorted_nums);
     }
 
     #[test]
     fn bubble_sort_sorts() {
-        let random_nums = vec![697, 1, 86, 885, -460, -291, 836, 197, -180, 307, 779];
-        assert_eq!(
-            bubble_sort(&random_nums),
-            [-460, -291, -180, 1, 86, 197, 307, 697, 779, 836, 885],
-        );
+        let (random_nums, sorted_nums) = get_test_values();
+        let bubble_sorted = bubble_sort(&random_nums);
+        assert_eq!(bubble_sorted, sorted_nums);
     }
 
     #[test]
     fn insertion_sort_sorts() {
-        let random_nums = vec![697, 1, 86, 885, -460, -291, 836, 197, -180, 307, 779];
-        println!("{:?}", insertion_sort(&random_nums));
-        assert_eq!(
-            insertion_sort(&random_nums),
-            [-460, -291, -180, 1, 86, 197, 307, 697, 779, 836, 885],
-        );
+        let (random_nums, sorted_nums) = get_test_values();
+        let insertion_sorted = insertion_sort(&random_nums);
+        assert_eq!(insertion_sorted, sorted_nums);
     }
 
     #[test]
     fn selection_sort_sorts() {
-        let random_nums = vec![697, 1, 86, 885, -460, -291, 836, 197, -180, 307, 779];
-        println!("{:?}", selection_sort(&random_nums));
-        assert_eq!(
-            selection_sort(&random_nums),
-            [-460, -291, -180, 1, 86, 197, 307, 697, 779, 836, 885],
-        );
+        let (random_nums, sorted_nums) = get_test_values();
+        let selection_sorted = selection_sort(&random_nums);
+        assert_eq!(selection_sorted, sorted_nums);
     }
 }
